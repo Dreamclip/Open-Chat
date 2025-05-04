@@ -2,26 +2,41 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>Open Chat Messenger</title>
     <link rel="shortcut icon" type="image/x-icon" href="https://img.icons8.com/?size=100&id=mvrixg4Dur0f&format=png&color=000000">
     <style>
+        :root {
+            --primary-color: #7F7FD5;
+            --secondary-color: #91EAE4;
+            --text-color: #333;
+            --text-light: #666;
+            --bg-color: #ffffff;
+            --header-bg: #f5f5f5;
+            --section-bg: #f9f9f9;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #ffffff;
-            color: #333;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             line-height: 1.6;
+            overflow-x: hidden;
         }
         
         .header {
-            background-color: #f5f5f5;
-            padding: 15px 20px;
+            background-color: var(--header-bg);
+            padding: 12px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -34,33 +49,39 @@
         }
         
         .logo {
-            width: 40px;
-            height: 40px;
-            margin-right: 15px;
+            width: 32px;
+            height: 32px;
+            margin-right: 10px;
         }
         
         .app-name {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
-            color: #333;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 150px;
         }
         
         .nav-links {
             display: flex;
-            gap: 25px;
+            gap: 15px;
         }
         
         .nav-link {
             text-decoration: none;
-            color: #333;
+            color: var(--text-color);
             font-weight: 500;
             transition: color 0.3s;
             padding: 5px 0;
             position: relative;
+            font-size: 14px;
+            white-space: nowrap;
         }
         
         .nav-link:hover {
-            color: #7F7FD5;
+            color: var(--primary-color);
         }
         
         .nav-link::after {
@@ -70,7 +91,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background-color: #7F7FD5;
+            background-color: var(--primary-color);
             transition: width 0.3s;
         }
         
@@ -94,27 +115,28 @@
         
         .hero {
             text-align: center;
-            padding: 80px 20px;
+            padding: 40px 15px;
             max-width: 900px;
             margin: 0 auto;
         }
         
         .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: #333;
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: var(--text-color);
             font-weight: 800;
+            line-height: 1.3;
         }
         
         .hero p {
-            font-size: 20px;
-            color: #555;
-            margin-bottom: 40px;
+            font-size: 16px;
+            color: var(--text-light);
+            margin-bottom: 20px;
         }
         
         .reasons {
-            background-color: #f9f9f9;
-            padding: 80px 20px;
+            background-color: var(--section-bg);
+            padding: 40px 15px;
         }
         
         .reasons-container, .faq-container {
@@ -124,60 +146,61 @@
         
         .reasons-title, .faq-title {
             text-align: center;
-            font-size: 36px;
-            margin-bottom: 60px;
-            color: #333;
+            font-size: 26px;
+            margin-bottom: 30px;
+            color: var(--text-color);
+            padding: 0 10px;
         }
         
         .reasons-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+            grid-template-columns: 1fr;
+            gap: 20px;
         }
         
         .reason {
-            background-color: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+            background-color: var(--bg-color);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
             transition: transform 0.3s, box-shadow 0.3s;
         }
         
         .reason:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
         }
         
         .reason-icon {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 20px;
+            width: 50px;
+            height: 50px;
+            margin-bottom: 15px;
         }
         
         .reason-title {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: #333;
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--text-color);
         }
         
         .reason-desc {
-            color: #666;
-            font-size: 16px;
+            color: var(--text-light);
+            font-size: 14px;
         }
         
         .faq-item {
-            background-color: white;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            background-color: var(--bg-color);
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
         
         .faq-question {
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 600;
-            color: #333;
-            margin-bottom: 15px;
+            color: var(--text-color);
+            margin-bottom: 0;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
@@ -186,8 +209,9 @@
         
         .faq-question::after {
             content: '+';
-            font-size: 24px;
-            color: #7F7FD5;
+            font-size: 20px;
+            color: var(--primary-color);
+            transition: transform 0.3s;
         }
         
         .faq-item.active .faq-question::after {
@@ -195,8 +219,8 @@
         }
         
         .faq-answer {
-            color: #666;
-            font-size: 16px;
+            color: var(--text-light);
+            font-size: 14px;
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-out, padding-top 0.3s ease-out;
@@ -204,21 +228,21 @@
         
         .faq-item.active .faq-answer {
             max-height: 500px;
-            padding-top: 15px;
+            padding-top: 12px;
         }
         
         .footer {
             text-align: center;
-            padding: 30px 20px;
-            background-color: #f5f5f5;
-            color: #666;
-            font-size: 14px;
+            padding: 20px 15px;
+            background-color: var(--header-bg);
+            color: var(--text-light);
+            font-size: 12px;
         }
         
         /* Анимации */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
         }
         
         .floating {
@@ -232,6 +256,160 @@
         
         .spinning {
             animation: spin 8s linear infinite;
+        }
+        
+        /* Мобильное меню */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            cursor: pointer;
+            z-index: 101;
+        }
+        
+        .menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: var(--text-color);
+            transition: all 0.3s;
+        }
+        
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        
+        /* Медиазапросы для адаптации */
+        @media (min-width: 576px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 17px;
+            }
+            
+            .reasons-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .app-name {
+                max-width: 200px;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .header {
+                padding: 15px 30px;
+            }
+            
+            .hero {
+                padding: 60px 20px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .reasons {
+                padding: 60px 20px;
+            }
+            
+            .reasons-title, .faq-title {
+                font-size: 30px;
+            }
+            
+            .reason {
+                padding: 25px;
+            }
+            
+            .reason-title {
+                font-size: 20px;
+            }
+            
+            .reason-desc {
+                font-size: 15px;
+            }
+            
+            .faq-question {
+                font-size: 18px;
+            }
+            
+            .faq-answer {
+                font-size: 15px;
+            }
+            
+            .nav-links {
+                gap: 25px;
+            }
+            
+            .nav-link {
+                font-size: 16px;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .reasons-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .hero h1 {
+                font-size: 42px;
+            }
+        }
+        
+        @media (min-width: 1200px) {
+            .reasons-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .hero h1 {
+                font-size: 48px;
+            }
+        }
+        
+        @media (max-width: 575px) {
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background-color: var(--header-bg);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transition: right 0.3s;
+                z-index: 100;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-link {
+                font-size: 18px;
+            }
+            
+            .header {
+                padding: 12px 15px;
+            }
         }
     </style>
 </head>
@@ -258,10 +436,17 @@
             </svg>
             <span class="app-name">Open Chat Messenger</span>
         </div>
+        
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
         <div class="nav-links">
-            <a href="#" class="nav-link" onclick="showPage('home')">Главная</a>
-            <a href="#" class="nav-link" onclick="showPage('faq')">FAQ</a>
-            <a href="#" class="nav-link">О нас</a>
+            <a href="#" class="nav-link" onclick="showPage('home'); toggleMenu()">Главная</a>
+            <a href="#" class="nav-link" onclick="showPage('faq'); toggleMenu()">FAQ</a>
+            <a href="#" class="nav-link" onclick="toggleMenu()">О нас</a>
         </div>
     </div>
     
@@ -480,6 +665,12 @@
                 page.classList.remove('active');
             });
             document.getElementById(pageId).classList.add('active');
+            
+            // Прокрутка вверх при переключении страниц
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
 
         // Работа аккордеона FAQ
@@ -496,6 +687,45 @@
                 });
             });
         });
+        
+        // Мобильное меню
+        function toggleMenu() {
+            const menu = document.querySelector('.nav-links');
+            const toggle = document.querySelector('.menu-toggle');
+            
+            menu.classList.toggle('active');
+            toggle.classList.toggle('active');
+            
+            // Блокировка прокрутки тела при открытом меню
+            if (menu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+        
+        // Закрытие меню при клике вне его области
+        document.addEventListener('click', (e) => {
+            const menu = document.querySelector('.nav-links');
+            const toggle = document.querySelector('.menu-toggle');
+            
+            if (menu.classList.contains('active') && 
+                !menu.contains(e.target) && 
+                !toggle.contains(e.target)) {
+                menu.classList.remove('active');
+                toggle.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Адаптация для мобильных устройств
+        function checkScreenSize() {
+            // Дополнительные адаптивные скрипты при необходимости
+        }
+        
+        // Проверяем размер экрана при загрузке и изменении размера
+        window.addEventListener('load', checkScreenSize);
+        window.addEventListener('resize', checkScreenSize);
     </script>
 </body>
 </html>
